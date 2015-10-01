@@ -4,8 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*",
-		"rcrowe/twigbridge": "0.6.x",
+		"laravel/framework": "4.2.*",		
                 "teepluss/theme": "1.*@dev"
 	},
 	"autoload": {

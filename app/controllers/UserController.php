@@ -14,10 +14,20 @@ class UserController extends BaseController {
     |	Route::get('/', 'HomeController@showWelcome');
     |
     */
+    protected $theme;
     
     public function __construct()
     {
         $this->beforeFilter('auth', array('except' => 'getLogin'));
+        $this->theme = Theme::uses('default')->layout('default');
+        //$this->theme->asset()->usePath('default');
+
+        $this->theme->asset()->add('core-style', 'css/bootstrap.min.css');
+        $this->theme->asset()->add('core-style', 'css/bootstrap-theme.min.css');
+        $this->theme->asset()->add('core-style', 'css/style.css');
+        $this->theme->asset()->container('footer')->add('core-script', 'js/bootstrap.min.js');
+        $this->theme->asset()->container('footer')->add('core-script', 'js/jquery.min.js');
+        $this->theme->asset()->container('footer')->add('core-script', 'js/scripts.js');
     }    
 
     public function showWelcome()
@@ -29,7 +39,9 @@ class UserController extends BaseController {
     {
         $b = array('name' => 'aries', 'lname' => 'laluces');
         
-        return View::make('login', $b);
+        //return View::make('login', $b);
+        //$theme = Theme::uses('default')->layout('default');
+        return $this->theme->of('login', $b)->render();
     }
     
     public function showHome()
