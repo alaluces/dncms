@@ -122,6 +122,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'TwigBridge\ServiceProvider',
+                'Teepluss\Theme\ThemeServiceProvider',
 
 	),
 
@@ -190,6 +191,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
                 'Twig'            => 'TwigBridge\Facade\Twig',
+                'Theme' => 'Teepluss\Theme\Facades\Theme',
 
 	),
 
