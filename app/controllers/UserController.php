@@ -20,6 +20,7 @@ class UserController extends BaseController {
     {
         $this->beforeFilter('auth', array('except' => 'getLogin'));
         $this->theme = Theme::uses('default')->layout('default');
+        //Theme::partial('header', array('title' => 'Header'));
         //$this->theme->asset()->usePath('default');
 
         $this->theme->asset()->add('core-style', 'css/bootstrap.min.css');
@@ -38,9 +39,7 @@ class UserController extends BaseController {
     public function getLogin()
     {
         $b = array('name' => 'aries', 'lname' => 'laluces');
-        
-        //return View::make('login', $b);
-        //$theme = Theme::uses('default')->layout('default');
+  
         return $this->theme->of('login', $b)->render();
     }
     
