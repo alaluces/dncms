@@ -27,7 +27,9 @@ class UserController extends BaseController {
     
     public function getLogin()
     {
-        echo 'login';
+        $b = array('name' => 'aries', 'lname' => 'laluces');
+        
+        return View::make('twig', $b);
     }
     
     public function showHome()
