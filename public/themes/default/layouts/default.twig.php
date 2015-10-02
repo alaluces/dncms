@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">  
-        
+    <head>       
         <title>{{ Theme.get('title') }}</title>
         <meta charset="utf-8">
         
@@ -15,13 +12,6 @@
         
         {{ Theme.asset().styles() }}
         {{ Theme.asset().scripts() }}
-        
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/style.css" rel="stylesheet">     
-        
-        <script src="js/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/scripts.js"></script>        
         
     </head>
     <body>

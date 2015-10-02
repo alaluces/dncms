@@ -18,35 +18,27 @@ class UserController extends BaseController {
     
     public function __construct()
     {
-        $this->beforeFilter('auth', array('except' => 'getLogin'));
+        $this->beforeFilter('auth', array('except' => 'showLogin'));
         $this->theme = Theme::uses('default')->layout('default');
-        //Theme::partial('header', array('title' => 'Header'));
-        //$this->theme->asset()->usePath('default');
-
-        $this->theme->asset()->add('core-style', 'css/bootstrap.min.css');
-        $this->theme->asset()->add('core-style', 'css/bootstrap-theme.min.css');
-        $this->theme->asset()->add('core-style', 'css/style.css');
-        $this->theme->asset()->container('footer')->add('core-script', 'js/bootstrap.min.js');
-        $this->theme->asset()->container('footer')->add('core-script', 'js/jquery.min.js');
-        $this->theme->asset()->container('footer')->add('core-script', 'js/scripts.js');
-    }    
-
-    public function showWelcome()
-    {
-            return View::make('hello');
-    }
+                
+        // NOTE: jquery should be loaded first
+        $this->theme->asset()->add('jquery', 'js/jquery.min.js');          
+        $this->theme->asset()->add('bootstrap-js', 'js/bootstrap.min.js');
+        $this->theme->asset()->add('core-script', 'js/scripts.js');  
+        
+        $this->theme->asset()->add('bootstrap-css', 'css/bootstrap.min.css');
+        $this->theme->asset()->add('bootstrap-theme', 'css/bootstrap-theme.min.css');
+        $this->theme->asset()->add('core-style', 'css/style.css');    
+     
+    }  
     
-    public function getLogin()
+    public function showLogin()
     {
         $b = array('name' => 'aries', 'lname' => 'laluces');
   
-        return $this->theme->of('login', $b)->render();
+        return $this->theme->of('home', $b)->render();
     }
     
-    public function showHome()
-    {
-        echo 'home';
-
-    }          
+         
 
 }
