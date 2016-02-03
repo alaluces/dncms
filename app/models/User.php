@@ -7,6 +7,7 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
+        public $timestamps = false;
 	use UserTrait, RemindableTrait;
 
 	/**
@@ -15,6 +16,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
+        protected $primaryKey = 'username';        
+        
+        
 
 	/**
 	 * The attributes excluded from the model's JSON form.

@@ -3,22 +3,27 @@
     <div class="row">
         <div class="col-md-12">            
             <ul class="nav nav-tabs">
-                <li class="active">
-                  <a href="#">Check DNC</a>
-                </li>
-                <li>
-                  <a href="#">Upload DNC</a>
-                </li>
-                <li>
-                  <a href="#">Scrub Leads</a>
-                </li>
-                <li>
-                  <a href="#">Generate Leads</a>
-                </li>                
-                <li class="disabled">
-                  <a href="#">Settings</a>
-                </li>
-  
+                {% if Auth.guest() %}
+                    <li class="active">
+                      <a href="#">Check DNC</a>
+                    </li>               
+                {% else %} 
+                    <li class="active">
+                      <a href="#">Check DNC</a>
+                    </li>                 
+                    <li {{ Auth.guest() ? 'class="disabled"' }}>
+                      <a href="#" >Upload DNC</a>
+                    </li>
+                    <li>
+                      <a href="#">Scrub Leads</a>
+                    </li>
+                    <li>
+                      <a href="#">Generate Leads</a>
+                    </li>                
+                    <li class="disabled">
+                      <a href="#">Settings</a>
+                    </li>               
+                {% endif %} 
             </ul>            
         </div>    
     </div>
