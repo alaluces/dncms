@@ -23,7 +23,7 @@ class SessionsController extends BaseController {
     public function add()
     {
         $user = new User;
-        $user->username = 'aries';
+        $user->username = 'aries2';
         $user->password = Hash::make('1234');
         $user->save();
   
