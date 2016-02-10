@@ -16,8 +16,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $table = 'users';
+        
+        // this is important if you dont have an 'id' field
         protected $primaryKey = 'username';        
         
+        protected $fillable = ['username', 'password'];
         
 
 	/**

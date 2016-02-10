@@ -32,6 +32,13 @@ class SessionsController extends BaseController {
     
     public function store()
     {
+        
+        $validation = Validator::make(Input::all(), ['username' => 'required|min:5', 'password' => 'required|min:5']);
+        
+        if ($validation->fails()) {
+            return Redirect::back()->withInput()->withErrors($validation->messages());
+        }
+        
         if (Auth::attempt(Input::only('username','password'))) {
             return Redirect::to('/');             
         } else {
