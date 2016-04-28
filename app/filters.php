@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	/*
+	
         if (Auth::guest())
 	{
 		if (Request::ajax())
@@ -44,11 +44,10 @@ Route::filter('auth', function()
 		}
 		else
 		{
-			return Redirect::guest('home');
+			return Redirect::guest('hone');
 		}
 	}
-         * 
-         */
+        
 });
 
 

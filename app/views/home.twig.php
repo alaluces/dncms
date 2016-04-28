@@ -34,11 +34,14 @@
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <form role="form">
+            <form role="form" method="POST" action="dnc/check">
                 <div class="form-group">
                     <label>Enter Phone Number(s)</label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" name="phoneNumber">{{ phoneNumber }}</textarea>
                 </div>
+                {% if errors.first('phoneNumber') %}
+                <span class="label label-danger">{{ errors.first('phoneNumber') }} </span><br>
+                {% endif %}
              
                 <button type="submit" class="btn btn-default btn-sm">
                     Submit
@@ -46,6 +49,7 @@
             </form>
         </div>
         <div class="col-md-4">
+            {{ msg }}
         </div>
     </div>
 </div>
