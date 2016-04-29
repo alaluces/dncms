@@ -11,24 +11,39 @@ class DncController extends BaseController {
     
     public function redirectToChecker()
     {
-        $phoneNumber = Input::get('phoneNumber');
-        return Redirect::to("dnc/check/$phoneNumber");
+        // str_replace might also work here
+        $phoneNumbers = implode(',', explode("\r\n", Input::get('phoneNumber')));
+        //dd(implode(',', explode("\r\n", Input::get('phoneNumber'))));
+        
+        return Redirect::to("dnc/check/$phoneNumbers");
     }   
     
-    public function check($phoneNumber)
+    public function check($strPhoneNumbers)
     {     
-        $a = array('phoneNumber' => $phoneNumber);   
+        $validationErrMsgs = array();
+        $dncMatchMsgs      = array();
+        $dncNoMatchMsgs    = array();
         
-        $validation = Validator::make(array('phoneNumber' => $phoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);
+        $phoneNumbers = explode(',', $strPhoneNumbers); 
         
-        if ($validation->fails()) {
-            //return Redirect::back()->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
-            $a['errors'] = $validation->messages();            
-        }        
-        
-              
-        return $this->theme->of('home', $a)->render();
+        foreach ($phoneNumbers as $phoneNumber) {
+            $validation = Validator::make(array('phoneNumber' => $phoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);
 
+            if ($validation->fails()) {
+                //return Redirect::to('/')->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
+                array_push($validationErrMsgs, $validation->messages());                          
+            } else {
+                if (DncFederal::find($phoneNumber)) {
+                    array_push($dncMatchMsgs, "$phoneNumber is on Federal DNC list");
+                } else {
+                    array_push($dncNoMatchMsgs, "$phoneNumber is not on Federal DNC list");
+                }               
+            }            
+        }
+                
+        $a = array('phoneNumbers' => $phoneNumbers, 'dncMatchMsgs' => $dncMatchMsgs, 'dncNoMatchMsgs' => $dncNoMatchMsgs, 'dncErrors' => $validationErrMsgs);   
+
+        return $this->theme->of('home', $a)->render();
     }    
     
     

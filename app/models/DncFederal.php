@@ -1,9 +1,9 @@
 <?php
 
-class DncCampaign extends Eloquent {
+class DncFederal extends Eloquent {
 
-    protected $table = 'dnc_list_campaigns2';
-    protected $primaryKey = 'campaign_phone';    
+    protected $table = 'dnc_list_federal';
+    protected $primaryKey = 'phone_number';    
 
 
 }

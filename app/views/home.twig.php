@@ -28,7 +28,7 @@
         </div>    
     </div>
     
-    <br><br><br>
+    <br>
     
     <div class="row">
 
@@ -37,22 +37,42 @@
             {{ Form.open({'action': 'dncApiChecker'}) }}
                 <div class="form-group">
                     <label>Enter Phone Number(s)</label>
-                    <textarea class="form-control" name="phoneNumber">{{ phoneNumber }}</textarea>
+                    <textarea class="form-control" name="phoneNumber" style="height:200px">{% for phoneNumber in phoneNumbers %}{{ phoneNumber }}&#13;&#10;{% endfor %}</textarea>
                 </div>
-                {% if errors.first('phoneNumber') %}
-                <span class="label label-danger">{{ errors.first('phoneNumber') }} </span><br>
-                {% endif %}
+                {% for dncError in dncErrors %} 
+                    {% if dncError.first('phoneNumber') %}
+                    <div class="form-group">
+                        <span class="label label-danger">{{ dncError.first('phoneNumber') }} </span>
+                    </div>    
+                    {% endif %}
+                {% endfor %}
              
                 <button type="submit" class="btn btn-default btn-sm">
                     Submit
                 </button>
             {{ Form.close() }}
         </div>
-        <div class="col-md-4">
+       <div class="col-md-4">
+
         </div>        
         <div class="col-md-4">
-            {{ msg }}
-        </div>
+            {% if dncMatchMsgs or dncNoMatchMsgs %}
+                <div class="form-group">
+                    <label>Results</label>            
+                </div>            
+                {% for dncMatchMsg in dncMatchMsgs %}            
+                    <div class="form-group">
+                        <span class="label label-danger">{{ dncMatchMsg }} </span>
+                    </div>             
+                {% endfor %} 
+                {% for dncNoMatchMsg in dncNoMatchMsgs %}            
+                    <div class="form-group">
+                        <span class="label label-info">{{ dncNoMatchMsg }} </span>
+                    </div>             
+                {% endfor %}  
+            {% endif %} 
+        </div>        
+ 
     </div>
 </div>
 
