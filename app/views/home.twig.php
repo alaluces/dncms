@@ -5,11 +5,11 @@
             <ul class="nav nav-tabs">
                 {% if Auth.guest() %}
                     <li class="active">
-                      <a href="#">Check DNC</a>
+                      <a href="{{ URL.to('/') }}">Check DNC</a>
                     </li>               
                 {% else %} 
                     <li class="active">
-                      <a href="#">Check DNC</a>
+                      <a href="{{ URL.to('/') }}">Check DNC</a>
                     </li>                 
                     <li {{ Auth.guest() ? 'class="disabled"' }}>
                       <a href="#" >Upload DNC</a>
@@ -31,10 +31,10 @@
     <br><br><br>
     
     <div class="row">
+
         <div class="col-md-4">
-        </div>
-        <div class="col-md-4">
-            <form role="form" method="POST" action="dnc/check">
+            
+            {{ Form.open({'action': 'dncApiChecker'}) }}
                 <div class="form-group">
                     <label>Enter Phone Number(s)</label>
                     <textarea class="form-control" name="phoneNumber">{{ phoneNumber }}</textarea>
@@ -46,8 +46,10 @@
                 <button type="submit" class="btn btn-default btn-sm">
                     Submit
                 </button>
-            </form>
+            {{ Form.close() }}
         </div>
+        <div class="col-md-4">
+        </div>        
         <div class="col-md-4">
             {{ msg }}
         </div>

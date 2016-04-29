@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">DNC Management System</a>
+      <a class="navbar-brand" href="{{ URL.to('/') }}">DNC Management System</a>
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse-2"> 
       
