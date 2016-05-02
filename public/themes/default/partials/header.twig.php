@@ -13,7 +13,7 @@
       
         {% if (Auth.guest()) %}        
             <div class="navbar-right">        
-                <a href="login" class="btn btn-default navbar-btn">
+                <a href="{{ URL.to('login') }}" class="btn btn-default navbar-btn">
                     Login
                 </a>
             </div>
@@ -25,7 +25,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li><a href="#">Change Password</a></li>
-                <li><a href="logout">Logout</a></li>
+                <li><a href="{{ URL.to('logout') }}">Logout</a></li>
               </ul>
             </li>       
              </ul>        

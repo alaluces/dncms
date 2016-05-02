@@ -1,0 +1,4 @@
+
+20160502
+RENAME TABLE `dnc`.`users` TO `dnc`.`users2`;
+ALTER TABLE `dnc`.`user_groupings` ADD COLUMN `username` VARCHAR(10) NULL AFTER `user_group_id`; 

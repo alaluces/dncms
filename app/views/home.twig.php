@@ -34,7 +34,7 @@
 
         <div class="col-md-4">
             
-            {{ Form.open({'action': 'dncApiChecker'}) }}
+            {{ Form.open({'action': 'apiDncChecker'}) }}
                 <div class="form-group">
                     <label>Enter Phone Number(s)</label>
                     <textarea class="form-control" name="phoneNumber" style="height:200px">{% for phoneNumber in phoneNumbers %}{{ phoneNumber }}&#13;&#10;{% endfor %}</textarea>
