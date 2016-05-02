@@ -11,9 +11,12 @@ class HomeController extends BaseController {
     
     public function showHome()
     {
-        $b = array('name' => 'aries', 'lname' => 'laluces');
+        $a = array(
+            'tabSection' => 'home' 
+
+        );  
   
-        return $this->theme->of('home', $b)->render();
+        return $this->theme->of('home', $a)->render();
         
         //return Auth::user(); 
 

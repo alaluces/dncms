@@ -45,11 +45,28 @@ class DncController extends BaseController {
             }            
         }
                 
-        $a = array('phoneNumbers' => $phoneNumbers, 'dncMatchMsgs' => $dncMatchMsgs, 'dncNoMatchMsgs' => $dncNoMatchMsgs, 'dncErrors' => $validationErrMsgs);   
+        $a = array(
+            'tabSection' => 'home', 
+            'phoneNumbers' => $phoneNumbers, 
+            'dncMatchMsgs' => $dncMatchMsgs, 
+            'dncNoMatchMsgs' => $dncNoMatchMsgs, 
+            'dncErrors' => $validationErrMsgs
+        );   
 
         return $this->theme->of('home', $a)->render();
     }    
     
+    
+    public function showUpload()
+    {     
+          
+        $a = array(
+            'tabSection' => 'upload' 
+
+        );  
+
+        return $this->theme->of('upload', $a)->render();
+    }      
     
     
     

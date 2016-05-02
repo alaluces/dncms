@@ -10,7 +10,7 @@
             
             {{ Form.open({'action': 'apiDncChecker'}) }}
                 <div class="form-group">
-                    <label>Enter Phone Number(s)</label>
+                    <label>Upload Phone Number(s)</label>
                     <textarea class="form-control" name="phoneNumber" style="height:200px">{% for phoneNumber in phoneNumbers %}{{ phoneNumber }}&#13;&#10;{% endfor %}</textarea>
                 </div>
                 {% if errors.first('phoneNumber') %}
