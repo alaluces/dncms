@@ -31,16 +31,17 @@ class DncController extends BaseController {
         $phoneNumbers = explode(',', $strPhoneNumbers); 
         
         foreach ($phoneNumbers as $phoneNumber) {
-            $validation = Validator::make(array('phoneNumber' => $phoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);
+            $sPhoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
+            $validation = Validator::make(array('phoneNumber' => $sPhoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);
 
             if ($validation->fails()) {
                 //return Redirect::to('/')->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
-                array_push($validationErrMsgs, "Phone number '$phoneNumber' is invalid");                          
+                array_push($validationErrMsgs, "Phone number '$sPhoneNumber' is invalid");                          
             } else {
-                if (DncFederal::find($phoneNumber)) {
-                    array_push($dncMatchMsgs, "$phoneNumber is on Federal DNC list");
+                if (DncFederal::find($sPhoneNumber)) {
+                    array_push($dncMatchMsgs, "$sPhoneNumber is on Federal DNC list");
                 } else {
-                    array_push($dncNoMatchMsgs, "$phoneNumber is not on Federal DNC list");
+                    array_push($dncNoMatchMsgs, "$sPhoneNumber is not on Federal DNC list");
                 }               
             }            
         }
