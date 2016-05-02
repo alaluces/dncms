@@ -25,32 +25,48 @@ class DncController extends BaseController {
     public function check($strPhoneNumbers)
     {     
         $validationErrMsgs = array();
-        $dncMatchMsgs      = array();
-        $dncNoMatchMsgs    = array();
+        $dncMsgs    = array();
+        
         
         $phoneNumbers = explode(',', $strPhoneNumbers); 
         
         foreach ($phoneNumbers as $phoneNumber) {
             $sPhoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
             $validation = Validator::make(array('phoneNumber' => $sPhoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);
-
+            $e          = array();
+            $t          = array();        
+            
             if ($validation->fails()) {
                 //return Redirect::to('/')->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
                 array_push($validationErrMsgs, "Phone number '$sPhoneNumber' is invalid");                          
             } else {
+                
+                $t['phone'] = $sPhoneNumber;
+                
                 if (DncFederal::find($sPhoneNumber)) {
-                    array_push($dncMatchMsgs, "$sPhoneNumber is on Federal DNC list");
+                    array_push($e, 'Federal');
+                }
+                
+                if (DncFederalState::find($sPhoneNumber)) {
+                    array_push($e, 'Federal State');
+                }                
+                
+                if (count($e) <= 0) {
+                    $t['clean'] = 'Not Found';
                 } else {
-                    array_push($dncNoMatchMsgs, "$sPhoneNumber is not on Federal DNC list");
-                }               
+                    $t['err'] = $e;
+                }             
+                
+                array_push($dncMsgs, $t);
+                
+                
             }            
         }
                 
         $a = array(
             'tabSection' => 'home', 
             'phoneNumbers' => $phoneNumbers, 
-            'dncMatchMsgs' => $dncMatchMsgs, 
-            'dncNoMatchMsgs' => $dncNoMatchMsgs, 
+            'dncMsgs' => $dncMsgs, 
             'dncErrors' => $validationErrMsgs
         );   
 

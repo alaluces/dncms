@@ -28,20 +28,24 @@
 
         </div>        
         <div class="col-md-4">
-            {% if dncMatchMsgs or dncNoMatchMsgs %}
+            {% if dncMsgs %}
                 <div class="form-group">
                     <label>Results</label>            
                 </div>            
-                {% for dncMatchMsg in dncMatchMsgs %}            
+                {% for dncMsg in dncMsgs %}  
                     <div class="form-group">
-                        <span class="label label-danger">{{ dncMatchMsg }} </span>
-                    </div>             
+                        <label>{{ dncMsg.phone }}         
+                    
+                    {% for err in dncMsg.err %}                        
+                        <span class="label label-danger">{{ err }}</span>&nbsp;                        
+                    {% endfor %}  
+                    {% if dncMsg.clean %}                        
+                        <span class="label label-info">{{ dncMsg.clean }}</span>                        
+                    {% endif %} 
+                        </label>   
+                    </div> 
                 {% endfor %} 
-                {% for dncNoMatchMsg in dncNoMatchMsgs %}            
-                    <div class="form-group">
-                        <span class="label label-info">{{ dncNoMatchMsg }} </span>
-                    </div>             
-                {% endfor %}  
+
             {% endif %} 
             {% for dncError in dncErrors %}                   
                 <div class="form-group">
