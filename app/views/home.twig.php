@@ -39,14 +39,12 @@
                     <label>Enter Phone Number(s)</label>
                     <textarea class="form-control" name="phoneNumber" style="height:200px">{% for phoneNumber in phoneNumbers %}{{ phoneNumber }}&#13;&#10;{% endfor %}</textarea>
                 </div>
-                {% for dncError in dncErrors %} 
-                    {% if dncError.first('phoneNumber') %}
-                    <div class="form-group">
-                        <span class="label label-danger">{{ dncError.first('phoneNumber') }} </span>
-                    </div>    
-                    {% endif %}
-                {% endfor %}
-             
+                {% if errors.first('phoneNumber') %}
+                <div class="form-group">
+                    <span class="label label-danger">{{ errors.first('phoneNumber') }} </span>
+                </div>    
+                {% endif %} 
+                
                 <button type="submit" class="btn btn-default btn-sm">
                     Submit
                 </button>
@@ -71,6 +69,11 @@
                     </div>             
                 {% endfor %}  
             {% endif %} 
+            {% for dncError in dncErrors %}                   
+                <div class="form-group">
+                    <span class="label label-danger">{{ dncError }} </span>
+                </div>                  
+            {% endfor %}            
         </div>        
  
     </div>

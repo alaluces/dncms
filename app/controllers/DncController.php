@@ -12,9 +12,13 @@ class DncController extends BaseController {
     public function redirectToChecker()
     {
         // str_replace might also work here
-        $phoneNumbers = implode(',', explode("\r\n", Input::get('phoneNumber')));
-        //dd(implode(',', explode("\r\n", Input::get('phoneNumber'))));
-        
+        $phoneNumbers = implode(',', explode("\r\n", Input::get('phoneNumber')));              
+        $validation = Validator::make(array('phoneNumber' => $phoneNumbers), ['phoneNumber' => 'required']);
+
+        if ($validation->fails()) {
+            return Redirect::back()->withErrors($validation->messages());                              
+        }      
+          
         return Redirect::to("dnc/check/$phoneNumbers");
     }   
     
@@ -31,7 +35,7 @@ class DncController extends BaseController {
 
             if ($validation->fails()) {
                 //return Redirect::to('/')->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
-                array_push($validationErrMsgs, $validation->messages());                          
+                array_push($validationErrMsgs, "Phone number '$phoneNumber' is invalid");                          
             } else {
                 if (DncFederal::find($phoneNumber)) {
                     array_push($dncMatchMsgs, "$phoneNumber is on Federal DNC list");
