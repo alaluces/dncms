@@ -5,7 +5,8 @@
     <br>
     
     <div class="row">
-
+        <div class="col-md-2">            
+        </div>  
         <div class="col-md-4">
             
             {{ Form.open({'action': 'apiDncChecker'}) }}
@@ -24,13 +25,11 @@
                 </button>
             {{ Form.close() }}
         </div>
-       <div class="col-md-4">
-            
-        </div>        
+       
         <div class="col-md-4">
             {% if dncMsgs %}
                 <div class="form-group">
-                    <label>Results</label>            
+                    <label>Result(s):</label>            
                 </div>            
                 {% for dncMsg in dncMsgs %}  
                     <div class="form-group">
@@ -52,7 +51,10 @@
                     <span class="label label-danger">{{ dncError }} </span>
                 </div>                  
             {% endfor %}            
-        </div>        
+        </div>  
+        <div class="col-md-2">
+            
+        </div>         
  
     </div>
 </div>

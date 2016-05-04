@@ -63,6 +63,18 @@ return array(
 			'prefix'    => '',
 		),
 
+                # Our secondary database connection
+		'mysql2' => array(
+			'driver'    => 'mysql',
+			'host'      => '192.168.1.9',
+			'database' => 'asterisk',
+			'username' => 'cron',
+			'password' => '1234',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),            
+
 		'pgsql' => array(
 			'driver'   => 'pgsql',
 			'host'     => 'localhost',

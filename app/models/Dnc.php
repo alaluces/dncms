@@ -30,12 +30,16 @@ class Dnc {
 
                 if (DncFederalState::find($sPhoneNumber)) {
                     array_push($e, 'Federal State');
-                } 
+                }                               
                 
                 foreach ($campaigns as $campaign) {
                     if (DncCampaign::find($campaign['campaign_id'] . $sPhoneNumber)) {
                         array_push($e, $campaign['campaign_name']);
                     }
+                }
+
+                if (DncVicidial::find($sPhoneNumber)) {
+                    array_push($e, 'Vicidial');
                 }                
 
                 if (count($e) <= 0) {
