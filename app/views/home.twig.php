@@ -25,7 +25,7 @@
             {{ Form.close() }}
         </div>
        <div class="col-md-4">
-
+            
         </div>        
         <div class="col-md-4">
             {% if dncMsgs %}
