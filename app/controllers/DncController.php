@@ -36,8 +36,8 @@ class DncController extends BaseController {
     {     
           
         $a = array(
-            'tabSection' => 'upload' 
-
+            'tabSection' => 'upload',
+            'campaigns'  => Campaign::All()
         );  
 
         return $this->theme->of('upload', $a)->render();

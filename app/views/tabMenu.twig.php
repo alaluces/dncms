@@ -13,17 +13,19 @@
                 <li {{ tabSection == 'upload' ? 'class="active"' }}>
                   <a href="{{ URL.to('dnc/upload') }}" >Upload DNC</a>
                 </li>
-                <li>
-                  <a href="{{ URL.to('dnc/scrub') }}">Scrub Leads</a>
+                <li class="disabled" >
+                  <a href="{{ Auth.guest() ? '#' : URL.to('dnc/scrub') }}" disabled='disabled'>Scrub Leads</a>
                 </li>
-                <li>
+                <!--
+                <li class="disabled">
                   <a href="{{ URL.to('lead/generate') }}">Generate Leads</a>
-                </li>                
+                </li> 
+                -->
                 <li class="disabled">
                   <a href="#">Settings</a>
                 </li>    
                 <li {{ Auth.guest() ? 'class="disabled"' }}>
-                  <a href="#" >X</a>
+                  <a href="#" >?</a>
                 </li>                
             {% endif %} 
         </ul>            

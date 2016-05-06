@@ -21,7 +21,7 @@
                 {% endif %} 
                 
                 <button type="submit" class="btn btn-default btn-sm">
-                    Submit
+                    Search
                 </button>
             {{ Form.close() }}
         </div>
