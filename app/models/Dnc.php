@@ -62,5 +62,10 @@ class Dnc {
         return $a;
 
     }
+    
+    public function getCampaigns()
+    {
+        return DB::table('campaigns')->orderBy('campaign_id', 'asc')->get();       
+    }            
 
 }

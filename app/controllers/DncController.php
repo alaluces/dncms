@@ -34,10 +34,10 @@ class DncController extends BaseController {
        
     public function showUpload()
     {     
-          
-        $a = array(
+        $dnc = new Dnc();  
+        $a   = array(
             'tabSection' => 'upload',
-            'campaigns'  => Campaign::All()
+            'campaigns'  => $dnc->getCampaigns()
         );  
 
         return $this->theme->of('upload', $a)->render();
