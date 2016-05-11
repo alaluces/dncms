@@ -66,6 +66,31 @@ class Dnc {
     public function getCampaigns()
     {
         return DB::table('campaigns')->orderBy('campaign_id', 'asc')->get();       
-    }            
+    }       
+    
+    public function upload($dncCampaignId, $phoneNumbers)
+    {        
+       
+        $dncMsgs = array();  
+        
+        foreach ($phoneNumbers as $phoneNumber) {
+            
+            $sPhoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
+            $validation = Validator::make(array('phoneNumber' => $sPhoneNumber), ['phoneNumber' => 'required|digits_between:9,12']);       
+
+            if ($validation->fails()) {
+                //return Redirect::to('/')->with(array('phoneNumber' => $phoneNumber))->withErrors($validation->messages());
+                array_push($dncMsgs, "Phone number '$sPhoneNumber' is invalid");                          
+            } else {                
+                DB::table('dnc_list_campaigns2')->insert(
+                    array('campaign_phone' => "$dncCampaignId$sPhoneNumber")
+                );                
+                array_push($dncMsgs, "Phone number '$sPhoneNumber' uploaded");    
+            }            
+        }        
+        
+        return $dncMsgs;     
+        
+    }     
 
 }

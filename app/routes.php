@@ -8,7 +8,7 @@ Route::post('dnc/check/', array('as' => 'apiDncChecker', 'uses' => 'DncControlle
 // protected routes
 Route::group(['before' => 'auth'], function(){
     Route::get('dnc/upload', 'DncController@showUpload');
-    
+    Route::post('dnc/upload', array('as' => 'dncUploader', 'uses' => 'DncController@upload'));    
 });
 
 // security routes

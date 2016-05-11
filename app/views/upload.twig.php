@@ -11,7 +11,7 @@
 
         <div class="col-md-4">
             
-            {{ Form.open({'action': 'apiDncChecker'}) }}
+            {{ Form.open({'action': 'dncUploader'}) }}
                 <div class="form-group">
                     <label>Upload Phone Number(s)</label>
                                       
@@ -19,14 +19,14 @@
 
                 <div class="form-group">
                     <label>Select DNC Group</label>                  
-                    <select class="form-control input-sm" name=""> 
+                    <select class="form-control input-sm" name="dncCampaignId"> 
+                        <option value="">SELECT</option>       
                         {% for c in campaigns %}  
                         <option value="{{ c.campaign_id }}">{{ c.campaign_id }}-{{ c.campaign_name }}</option>              
                         {% endfor %}  
                     </select>
                 </div>
-                <div class="form-group">
-                    
+                <div class="form-group">                    
                     <textarea class="form-control input-sm" name="phoneNumber" style="height:200px">{% for phoneNumber in phoneNumbers %}{{ phoneNumber }}&#13;&#10;{% endfor %}</textarea>
                 </div>
 
@@ -43,6 +43,17 @@
         </div>    
         
         <div class="col-md-4">
+            {% if dncMsgs %}
+                <div class="form-group">
+                    <label>Result(s):</label>            
+                </div>            
+                {% for dncMsg in dncMsgs %}  
+                    <div class="form-group">
+                        <label>{{ dncMsg }}</label>   
+                    </div> 
+                {% endfor %} 
+
+            {% endif %}             
         
         </div>
         

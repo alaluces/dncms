@@ -41,6 +41,30 @@ class DncController extends BaseController {
         );  
 
         return $this->theme->of('upload', $a)->render();
+    } 
+    
+    public function upload()
+    {     
+        $dncCampaignId = Input::get('dncCampaignId');
+        $phoneNumbers  = Input::get('phoneNumber'); 
+        
+        $validation = Validator::make(array('phoneNumber' => $phoneNumbers), ['phoneNumber' => 'required']);
+
+        if ($validation->fails()) {
+            return Redirect::back()->withErrors($validation->messages());                              
+        } 
+        
+        $dnc = new Dnc();   
+        
+        $a = array(
+            'tabSection' => 'upload',
+            'dncMsgs'  => $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers))
+        );  
+        
+        //$a = $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers));
+
+        return Redirect::to('dnc/upload'); 
+        //$this->theme->of('upload', $a)->render();
     }    
     
 
