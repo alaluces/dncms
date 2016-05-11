@@ -37,9 +37,10 @@ class DncController extends BaseController {
         $dnc = new Dnc();  
         $a   = array(
             'tabSection' => 'upload',
-            'campaigns'  => $dnc->getCampaigns()
+            'campaigns'  => $dnc->getCampaigns(),
+            'dncMsgs'    => Session::get('dncMsgs')
         );  
-
+        
         return $this->theme->of('upload', $a)->render();
     } 
     
@@ -48,7 +49,10 @@ class DncController extends BaseController {
         $dncCampaignId = Input::get('dncCampaignId');
         $phoneNumbers  = Input::get('phoneNumber'); 
         
-        $validation = Validator::make(array('phoneNumber' => $phoneNumbers), ['phoneNumber' => 'required']);
+        $validation = Validator::make(
+                array('phoneNumber' => $phoneNumbers, 'dncCampaignId' => $dncCampaignId), 
+                ['phoneNumber' => 'required', 'dncCampaignId' => 'required']
+        );
 
         if ($validation->fails()) {
             return Redirect::back()->withErrors($validation->messages());                              
@@ -56,16 +60,15 @@ class DncController extends BaseController {
         
         $dnc = new Dnc();   
         
-        $a = array(
-            'tabSection' => 'upload',
+        $a = array(            
             'dncMsgs'  => $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers))
-        );  
-        
-        //$a = $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers));
-
-        return Redirect::to('dnc/upload'); 
+        );       
+      
+        return Redirect::to('dnc/upload')->with($a); 
         //$this->theme->of('upload', $a)->render();
-    }    
+    }  
+    
+    
     
 
     
