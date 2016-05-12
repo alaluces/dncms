@@ -69,7 +69,7 @@ class Dnc {
         return DB::table('campaigns')->orderBy('campaign_id', 'asc')->get();       
     }       
     
-    public function upload($dncCampaignId, $phoneNumbers)
+    public function upload($dncCampaignId, $phoneNumbers, $addToVicidialDnc)
     {         
         $dncMsgs = array();  
         
@@ -84,8 +84,13 @@ class Dnc {
             if ($validation->fails()) {
                 array_push($dncMsgs, array('phoneNumber' => $sPhoneNumber, 'err' => 'Invalid'));                          
             } else {                
-                DncCampaign::firstOrCreate(['campaign_phone' => "$dncCampaignId$sPhoneNumber"]);                
-                array_push($dncMsgs, array('phoneNumber' => $sPhoneNumber, 'msg' => 'Uploaded'));    
+                DncCampaign::firstOrCreate(['campaign_phone' => "$dncCampaignId$sPhoneNumber"]);              
+                
+                if ($addToVicidialDnc) {
+                    DncVicidial::firstOrCreate(['phone_number' => $sPhoneNumber]);  
+                }
+                
+                array_push($dncMsgs, array('phoneNumber' => $sPhoneNumber, 'msg' => 'Uploaded')); 
             }            
         }        
         

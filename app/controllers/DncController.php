@@ -46,8 +46,9 @@ class DncController extends BaseController {
     
     public function upload()
     {     
-        $dncCampaignId = Input::get('dncCampaignId');
-        $phoneNumbers  = Input::get('phoneNumber'); 
+        $dncCampaignId    = Input::get('dncCampaignId');
+        $phoneNumbers     = Input::get('phoneNumber'); 
+        $addToVicidialDnc = Input::get('addToVicidialDnc');        
         
         $validation = Validator::make(
                 array('phoneNumber' => $phoneNumbers, 'dncCampaignId' => $dncCampaignId), 
@@ -61,7 +62,7 @@ class DncController extends BaseController {
         $dnc = new Dnc();   
         
         $a = array(            
-            'dncMsgs'  => $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers))
+            'dncMsgs'  => $dnc->upload($dncCampaignId, explode("\r\n", $phoneNumbers), $addToVicidialDnc)
         );       
       
         return Redirect::to('dnc/upload')->with($a); 

@@ -25,11 +25,16 @@
                         <option value="{{ c.campaign_id }}">{{ c.campaign_id }}-{{ c.campaign_name }}</option>              
                         {% endfor %}  
                     </select>
-                    
                     {% if errors.first('dncCampaignId') %}                    
                         <span class="label label-danger">{{ errors.first('dncCampaignId') }}</span>                     
                     {% endif %}
                     
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="addToVicidialDnc">
+                            Add to Vicidial DNC
+                        </label>
+                    </div>
                 </div>
                 <div class="form-group">                    
                     <textarea class="form-control input-sm" name="phoneNumber" style="height:200px"></textarea>
