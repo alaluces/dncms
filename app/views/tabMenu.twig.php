@@ -11,9 +11,12 @@
                   <a href="{{ URL.to('/') }}">Check DNC</a>
                 </li>
                 <li {{ tabSection == 'upload' ? 'class="active"' }}>
-                  <a href="{{ URL.to('dnc/upload') }}" >Upload DNC</a>
-                <!--  
+                  <a href="{{ URL.to('dnc/upload') }}" >Upload DNC</a>                
                 </li>
+                <li {{ tabSection == 'unblock' ? 'class="active"' }}>
+                  <a href="{{ URL.to('dnc/unblock') }}" >Unblock DNC</a>                
+                </li>                
+                <!--  
                 <li class="disabled" >
                   <a href="{{ Auth.guest() ? '#' : URL.to('dnc/scrub') }}" disabled='disabled'>Scrub Leads</a>
                 </li>

@@ -98,4 +98,35 @@ class Dnc {
         
     }     
 
+    public function unblock($phoneId, $managerName, $agentName, $phoneNumbers)
+    {         
+        $dncMsgs = array();  
+        
+        foreach ($phoneNumbers as $phoneNumber) {
+            
+            $sPhoneNumber = preg_replace("/[^0-9]/", "", $phoneNumber);
+            $validation = Validator::make(
+                    array('phoneNumber' => $sPhoneNumber), 
+                    ['phoneNumber' => 'required|digits_between:9,12']
+            );       
+
+            if ($validation->fails()) {
+                array_push($dncMsgs, array('phoneNumber' => $sPhoneNumber, 'err' => 'Invalid'));                          
+            } else {                
+                WhiteList::insert(['phone_number' => $phoneNumber,
+                                    'username' => Auth::user()->username,                                    
+                                    'manager_name' => $managerName,
+                                    'agent_name' => $agentName,
+                                    'sip_id' => $phoneId,
+                                    'request_date' => date("Y-m-d"),
+                                    'ip_address' => Request::getClientIp()]
+                );
+                
+                array_push($dncMsgs, array('phoneNumber' => $sPhoneNumber, 'msg' => 'Unblocked for ' . $phoneId)); 
+            }            
+        }        
+        
+        return $dncMsgs;    
+        
+    }     
 }

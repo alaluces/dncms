@@ -44,6 +44,18 @@ class DncController extends BaseController {
         return $this->theme->of('upload', $a)->render();
     } 
     
+    public function showUnblock()
+    {     
+        $dnc = new Dnc();  
+        $a   = array(
+            'tabSection' => 'unblock',
+            'campaigns'  => $dnc->getCampaigns(),
+            'dncMsgs'    => Session::get('dncMsgs')
+        );  
+        
+        return $this->theme->of('unblock', $a)->render();
+    }    
+    
     public function upload()
     {     
         $dncCampaignId    = Input::get('dncCampaignId');
@@ -67,8 +79,38 @@ class DncController extends BaseController {
       
         return Redirect::to('dnc/upload')->with($a); 
         //$this->theme->of('upload', $a)->render();
-    }  
+    }     
     
+    public function unblock()
+    {     
+        $phoneId      = Input::get('phoneId');
+        $managerName  = Input::get('managerName');
+        $agentName    = Input::get('agentName');        
+        $phoneNumbers = Input::get('phoneNumber'); 
+             
+        
+        $validation = Validator::make(
+                Input::all(), 
+                ['phoneNumber' => 'required', 
+                 'phoneId' => 'required', 
+                 'managerName' => 'required', 
+                 'agentName' => 'required'
+                ]
+        );
+
+        if ($validation->fails()) {
+            return Redirect::back()->withErrors($validation->messages())->withInput();                              
+        } 
+        
+        $dnc = new Dnc();   
+        
+        $a = array(            
+            'dncMsgs'  => $dnc->unblock($phoneId, $managerName, $agentName, explode("\r\n", $phoneNumbers))
+        );       
+      
+        return Redirect::to('dnc/unblock')->with($a);
+        
+    }    
     
     
 
