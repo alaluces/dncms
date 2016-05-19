@@ -12,7 +12,7 @@ class DncController extends BaseController {
     public function redirectToChecker()
     {
         // str_replace might also work here
-        $phoneNumbers = implode(',', explode("\r\n", Input::get('phoneNumber')));              
+        $phoneNumbers = implode(',', explode("\r\n", preg_replace("/[^0-9\r\n]/", "", Input::get('phoneNumber'))));              
         $validation = Validator::make(array('phoneNumber' => $phoneNumbers), ['phoneNumber' => 'required']);
 
         if ($validation->fails()) {
