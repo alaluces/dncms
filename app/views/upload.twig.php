@@ -8,7 +8,7 @@
         
         <div class="col-md-2">
         </div>            
-            {{ Session.get('test') }}
+            
         <div class="col-md-4">
             
             {{ Form.open({'action': 'dncUploader'}) }}

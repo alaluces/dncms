@@ -9,8 +9,11 @@ Route::post('dnc/check/', array('as' => 'apiDncChecker', 'uses' => 'DncControlle
 Route::group(['before' => 'auth'], function(){
     Route::get('dnc/upload', 'DncController@showUpload');   
     Route::get('dnc/unblock', 'DncController@showUnblock');
+    Route::get('changepw', 'UserController@showChangePw');
+    
     Route::post('dnc/upload', array('as' => 'dncUploader', 'uses' => 'DncController@upload'));    
     Route::post('dnc/unblock', array('as' => 'dncUnblocker', 'uses' => 'DncController@unblock'));
+    Route::post('changepw', array('as' => 'changepw', 'uses' => 'UserController@changePw'));    
 
     Route::get('add', 'SessionsController@add');
 });
